@@ -33,6 +33,10 @@ Vous pouvez parcourir la documentation de l’API dans le serveur d’API intég
 
 Une documentation API non interactive est disponible à l’adresse suivante : [sctgdesk-api-server repo](https://sctg-development.github.io/sctgdesk-api-server/).
 
+## Lancez le projet
+
+**Si vous appréciez mon travail, pensez à lui donner une étoile ! 🤩**
+
 ## TL; DR
 
 Vous pouvez utiliser les éléments suivants `docker-compose.yml` pour démarrer le serveur :

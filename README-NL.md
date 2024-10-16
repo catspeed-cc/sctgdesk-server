@@ -33,6 +33,10 @@ U kunt de API-documentatie in de ingebouwde API-server doorzoeken op het adres `
 
 Een niet-interactieve API-documentatie is beschikbaar op [sctgdesk-api-server opslagplaats](https://sctg-development.github.io/sctgdesk-api-server/).
 
+## Geef het project een ster
+
+**Als je mijn werk waardeert, overweeg dan om het een ster te geven! 🤩**
+
 ## TL; DR
 
 U kunt het volgende gebruiken `docker-compose.yml` bestand om de server te starten:

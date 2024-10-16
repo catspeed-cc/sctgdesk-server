@@ -33,6 +33,10 @@ Web 控制台可通過以下位址訪問`http://<server-ip>:21114/`登錄名 “
 
 非互動式 API 文件可在[sctgdesk-api-server 存儲庫](https://sctg-development.github.io/sctgdesk-api-server/).
 
+## 為專案加星標
+
+**如果您欣賞我的作品，請考慮給它打星標！🤩**
+
 ## TL;博士
 
 您可以使用以下內容`docker-compose.yml`檔案啟動伺服器：
