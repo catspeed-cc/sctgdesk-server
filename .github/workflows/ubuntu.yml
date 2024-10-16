@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - tcpserver-master-build
       - armhf
 
 jobs:
