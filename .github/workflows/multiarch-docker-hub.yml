@@ -1,3 +1,6 @@
+# Copyright 2024 SCTG Development - Ronan LE MEILLAT
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third party and are governed by
 # separate terms of service, privacy policy, and support.
@@ -36,6 +39,8 @@ jobs:
       attestations: write
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    env:
+      DOCKER_ARMHF_EXPERIMENTAL: enabled # Set to 'enabled' to enable armhf build
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -46,7 +51,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
-          platforms: 'arm64'
+          platforms: 'linux/arm64,linux/armhf,linux/amd64'
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Log in to Docker Hub
@@ -82,7 +87,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile-integration
-          platforms: linux/arm64, linux/amd64
+          platforms: linux/arm64, linux/amd64, linux/armhf
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
@@ -123,6 +128,24 @@ jobs:
           cd /tmp/arm64/zip
           zip -r /tmp/arm64/linux-ubuntu-22.04_${{ github.event.release.tag_name }}_arm64.zip .
 
+      - name: Pull and extract files from Docker image (armhf)
+        continue-on-error: true
+        if: ${{ env.DOCKER_ARMHF_EXPERIMENTAL == 'enabled' }}
+        run: |
+          export TAG=${{ github.event.release.tag_name }}
+          mkdir -p /tmp/armhf/zip
+          docker pull ${{ secrets.DOCKER_IMAGE }}-integration:latest
+          docker create --platform linux/armhf --name temp-container-armhf ${{ secrets.DOCKER_IMAGE }}-integration:latest
+          docker cp temp-container-armhf:/usr/local/share/debpackages/rustdesk-server-hbbr_${{ github.event.release.tag_name }}_armhf.deb /tmp/armhf/
+          docker cp temp-container-armhf:/usr/local/share/debpackages/rustdesk-server-hbbs_${{ github.event.release.tag_name }}_armhf.deb /tmp/armhf/
+          docker cp temp-container-armhf:/usr/local/share/debpackages/rustdesk-server-utils_${{ github.event.release.tag_name }}_armhf.deb /tmp/armhf/
+          docker cp temp-container-armhf:/usr/local/bin/hbbs /tmp/armhf/zip/
+          docker cp temp-container-armhf:/usr/local/bin/hbbr /tmp/armhf/zip/
+          docker cp temp-container-armhf:/usr/local/bin/rustdesk-utils /tmp/armhf/zip/
+          docker rm temp-container-armhf
+          cd /tmp/armhf/zip
+          zip -r /tmp/armhf/linux-ubuntu-22.04_${{ github.event.release.tag_name }}_armhf.zip .
+
       - name: Upload Release
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -137,6 +160,16 @@ jobs:
             gh release upload ${{ github.event.release.tag_name }} /tmp/amd64/rustdesk-server-hbbs_${{ github.event.release.tag_name }}_amd64.deb
             gh release upload ${{ github.event.release.tag_name }} /tmp/amd64/rustdesk-server-utils_${{ github.event.release.tag_name }}_amd64.deb
 
+      - name: Upload armhf release
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ env.DOCKER_ARMHF_EXPERIMENTAL == 'enabled' }}
+        run: |
+            gh release upload ${{ github.event.release.tag_name }} /tmp/armhf/linux-ubuntu-22.04_${{ github.event.release.tag_name }}_armhf.zip
+            gh release upload ${{ github.event.release.tag_name }} /tmp/armhf/rustdesk-server-hbbr_${{ github.event.release.tag_name }}_armhf.deb
+            gh release upload ${{ github.event.release.tag_name }} /tmp/armhf/rustdesk-server-hbbs_${{ github.event.release.tag_name }}_armhf.deb
+            gh release upload ${{ github.event.release.tag_name }} /tmp/armhf/rustdesk-server-utils_${{ github.event.release.tag_name }}_armhf.deb
+
       - name: Extract metadata (tags, labels) for Docker integration image
         id: meta
         uses: docker/metadata-action@v5
@@ -149,7 +182,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/arm64, linux/amd64
+          platforms: linux/arm64, linux/amd64, linux/armhf
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
@@ -176,3 +209,10 @@ jobs:
         continue-on-error: true
         with:
           subject-path: '/tmp/arm64/linux-ubuntu-22.04_${{ github.event.release.tag_name }}_arm64.zip, /tmp/arm64/rustdesk-server-hbbr_${{ github.event.release.tag_name }}_arm64.deb, /tmp/arm64/rustdesk-server-hbbs_${{ github.event.release.tag_name }}_arm64.deb, /tmp/arm64/rustdesk-server-utils_${{ github.event.release.tag_name }}_arm64.deb, /tmp/arm64/zip/hbbs, /tmp/arm64/zip/hbbr, /tmp/arm64/zip/rustdesk-utils'
+
+      - name: Attest release armhf
+        uses: actions/attest-build-provenance@v1
+        if: ${{ env.DOCKER_ARMHF_EXPERIMENTAL == 'enabled' }}
+        continue-on-error: true
+        with:
+          subject-path: '/tmp/armhf/linux-ubuntu-22.04_${{ github.event.release.tag_name }}_armhf.zip, /tmp/armhf/rustdesk-server-hbbr_${{ github.event.release.tag_name }}_armhf.deb, /tmp/armhf/rustdesk-server-hbbs_${{ github.event.release.tag_name }}_armhf.deb, /tmp/armhf/rustdesk-server-utils_${{ github.event.release.tag_name }}_armhf.deb, /tmp/armhf/zip/hbbs, /tmp/armhf/zip/hbbr, /tmp/armhf/zip/rustdesk-utils'
