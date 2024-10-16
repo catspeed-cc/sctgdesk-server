@@ -34,6 +34,10 @@ You can browse the API documentation in the builtins API server at the address `
 
 A non interactive API documentation is available at [sctgdesk-api-server repo](https://sctg-development.github.io/sctgdesk-api-server/).
 
+## Star the project
+
+**If you appreciate my work, please consider giving it a star! 🤩**
+
 ## TL;DR
 
 You can use the following `docker-compose.yml` file to start the server:
