@@ -41,7 +41,7 @@ RUN --mount=type=tmpfs,target=/root/.cargo export TARGET=$(cat /build/_target) \
     mv /root/.cargo/config.tmp /root/.cargo/config.toml \
     && . /root/.cargo/env && cd /build \ 
     && cargo update -p sctgdesk-api-server \
-    && DATABASE_URL=sqlite://$(pwd)/db_v2.sqlite3 cargo build --target=$TARGET--release \
+    && DATABASE_URL=sqlite://$(pwd)/db_v2.sqlite3 cargo build --target=$TARGET --release \
     && mkdir -p /build/ubuntu-jammy/bin \
     && cp /build/target/release/hbbr /build/ubuntu-jammy/bin/ \
     && cp /build/target/release/hbbs /build/ubuntu-jammy/bin/ \
