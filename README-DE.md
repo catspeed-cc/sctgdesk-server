@@ -36,7 +36,7 @@ Eine nicht-interaktive API-Dokumentation finden Sie unter [sctgdesk-api-server r
 
 ## Markieren Sie das Projekt
 
-**Wenn Sie meine Arbeit schätzen, denken Sie bitte darüber nach, ihr einen Stern zu geben! 🤩**
+**Wenn Sie meine Arbeit schätzen, denken Sie bitte darüber nach, ihr einen Stern zu geben! 🤩 oder ein** [![](https://img.shields.io/static/v1?label=Sponsor\&message=%E2%9D%A4\&logo=GitHub\&color=%23fe8e86)](https://github.com/sponsors/sctg-development)
 
 ## TL; DR
 
