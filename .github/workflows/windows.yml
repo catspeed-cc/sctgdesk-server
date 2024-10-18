@@ -60,13 +60,12 @@ jobs:
 
     - name: Build
       continue-on-error: true
-      shell: cmd
+      shell: bash
       run: |
         cargo update -p sctgdesk-api-server
-        set "DATABASE_URL=sqlite://%CD%/db_v2.sqlite3"
-        set "DATABASE_URL=sqlite://%CD%/db_v2.sqlite3" && cargo build --release --target ${{ matrix.job.arch }}-pc-windows-msvc
-        cd target\${{ matrix.job.arch }}-pc-windows-msvc\release
-        7z a -tzip /tmp/windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip hbbs.exe hbbr.exe rustdesk-utils.exe
+        DATABASE_URL=sqlite://$(pwd)/db_v2.sqlite3 cargo build --target=${{ matrix.job.arch }} --release
+        cd target/${{ matrix.job.arch }}-pc-windows-msvc/release
+        7z a -tzip /tmp/windows_c_${{ github.event.release.tag_name }}.zip hbbs.exe hbbr.exe rustdesk-utils.exe
 
     - name: Attest artifacts
       uses: actions/attest-build-provenance@v1
