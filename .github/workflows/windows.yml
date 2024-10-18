@@ -73,14 +73,15 @@ jobs:
       with:
         subject-path: '/tmp/windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip'
 
-    - name: Upload Release Assets binaries for Windows
-      uses: softprops/action-gh-release@v2
-      continue-on-error: true
-      with:
-        files: |
-            /tmp/windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip
+    - name: Create Release with gh for Windows amd64
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+            export TAG_NAME=${{ github.event.release.tag_name }}
+            export TAG_NAME=${TAG_NAME:-"nightly"}
+            echo $TAG_NAME
+            gh release create $TAG_NAME -t "$TAG_NAME" -n "$TAG_NAME" || true
+            gh release upload $TAG_NAME /tmp/windows_${{ matrix.job.arch }}_$TAG_NAME.zip --clobber
     
     - name: Attest release
       uses: actions/attest-build-provenance@v1
