@@ -74,6 +74,7 @@ jobs:
         subject-path: '/tmp/windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip'
 
     - name: Create Release with gh for Windows amd64
+      shell: bash
       env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
