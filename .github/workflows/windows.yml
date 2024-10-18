@@ -60,17 +60,18 @@ jobs:
 
     - name: Build
       continue-on-error: true
-      shell: bash
+      shell: cmd
       run: |
         cargo update -p sctgdesk-api-server
-        DATABASE_URL=sqlite://$(pwd)/db_v2.sqlite3 cargo build --target=${{ matrix.job.arch }} --release
-        cd target/${{ matrix.job.arch }}-pc-windows-msvc/release
-        7z a -tzip /tmp/windows_c_${{ github.event.release.tag_name }}.zip hbbs.exe hbbr.exe rustdesk-utils.exe
+        set "DATABASE_URL=sqlite://%CD%/db_v2.sqlite3"
+        set "DATABASE_URL=sqlite://%CD%/db_v2.sqlite3" && cargo build --release --target ${{ matrix.job.arch }}-pc-windows-msvc
+        cd target\${{ matrix.job.arch }}-pc-windows-msvc\release
+        7z a -tzip ..\..\..\windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip hbbs.exe hbbr.exe rustdesk-utils.exe
 
     - name: Attest artifacts
       uses: actions/attest-build-provenance@v1
       with:
-        subject-path: '/tmp/windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip'
+        subject-path: '..\..\..\windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip'
 
     - name: Create Release with gh for Windows amd64
       shell: bash
@@ -80,9 +81,9 @@ jobs:
             export TAG_NAME=${{ github.event.release.tag_name }}
             export TAG_NAME=${TAG_NAME:-"nightly"}
             echo $TAG_NAME
-            mv /tmp/windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip /tmp/windows_${{ matrix.job.arch }}_$TAG_NAME.zip
+            mv windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip windows_${{ matrix.job.arch }}_$TAG_NAME.zip
             gh release create $TAG_NAME -t "$TAG_NAME" -n "$TAG_NAME" || true
-            gh release upload $TAG_NAME /tmp/windows_${{ matrix.job.arch }}_$TAG_NAME.zip --clobber
+            gh release upload $TAG_NAME windows_${{ matrix.job.arch }}_$TAG_NAME.zip --clobber
     
     - name: Attest release
       uses: actions/attest-build-provenance@v1
