@@ -36,7 +36,7 @@ Une documentation API non interactive est disponible à l’adresse suivante : [
 
 ## Lancez le projet
 
-**Si vous appréciez mon travail, pensez à lui donner une étoile ! 🤩**
+**Si vous appréciez mon travail, pensez à lui donner une étoile ! 🤩 ou un** [![](https://img.shields.io/static/v1?label=Sponsor\&message=%E2%9D%A4\&logo=GitHub\&color=%23fe8e86)](https://github.com/sponsors/sctg-development)
 
 ## TL; DR
 

@@ -36,7 +36,7 @@ Web 控制台可通過以下位址訪問`http://<server-ip>:21114/`登錄名 “
 
 ## 為專案加星標
 
-**如果您欣賞我的作品，請考慮給它打星標！🤩**
+**如果您欣賞我的作品，請考慮給它打星標！🤩 或**[![](https://img.shields.io/static/v1?label=Sponsor\&message=%E2%9D%A4\&logo=GitHub\&color=%23fe8e86)](https://github.com/sponsors/sctg-development)
 
 ## TL;博士
 

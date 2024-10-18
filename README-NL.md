@@ -36,7 +36,7 @@ Een niet-interactieve API-documentatie is beschikbaar op [sctgdesk-api-server op
 
 ## Geef het project een ster
 
-**Als je mijn werk waardeert, overweeg dan om het een ster te geven! 🤩**
+**Als je mijn werk waardeert, overweeg dan om het een ster te geven! 🤩 of een** [![](https://img.shields.io/static/v1?label=Sponsor\&message=%E2%9D%A4\&logo=GitHub\&color=%23fe8e86)](https://github.com/sponsors/sctg-development)
 
 ## TL; DR
 
