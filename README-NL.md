@@ -9,6 +9,7 @@
 
 # SctgDesk Server Programma
 
+![Docker Pulls](https://img.shields.io/docker/pulls/sctg/sctgdesk-server)
 [![build](https://github.com/sctg-development/sctgdesk-server/actions/workflows/multiarch-docker-hub.yml/badge.svg)](https://github.com/sctg-development/sctgdesk-server/actions/workflows/multiarch-docker-hub.yml)
 [![build](https://github.com/sctg-development/sctgdesk-server/actions/workflows/macos-intel-build.yml/badge.svg)](https://github.com/sctg-development/sctgdesk-server/actions/workflows/macos-intel-build.yml)
 [![build](https://github.com/sctg-development/sctgdesk-server/actions/workflows/windows.yml/badge.svg)](https://github.com/sctg-development/sctgdesk-server/actions/workflows/windows.yml)
@@ -87,6 +88,17 @@ en start de server met:
 mkdir -p data
 docker-compose up 
 ```
+
+## Binaries
+
+Binaire bestanden zijn beschikbaar voor de volgende platforms:
+
+*   Linux x86\_64 statisch gekoppeld
+*   Linux arm64 statisch gekoppeld
+*   Linux armv7 statisch gekoppeld
+*   MacOS Intel
+*   MacOS Apple Silicium
+*   Windows x86\_64
 
 ### Standaard admin-gebruiker
 
@@ -327,6 +339,7 @@ Deze beelden zijn gebouwd tegen `ubuntu-22.04` met de enige toevoeging van de be
 | --- | --- |
 | AMD64 | `sctg/sctgdesk-server:latest` |
 | arm64v8 | `sctg/sctgdesk-server:latest` |
+| arm32v7 | `sctg/sctgdesk-server:latest` |
 
 U kunt deze afbeeldingen direct starten met `docker run` met deze commando's:
 

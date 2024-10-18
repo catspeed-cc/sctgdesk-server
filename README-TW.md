@@ -9,6 +9,7 @@
 
 # SctgDesk 伺服器程式
 
+![Docker Pulls](https://img.shields.io/docker/pulls/sctg/sctgdesk-server)
 [![build](https://github.com/sctg-development/sctgdesk-server/actions/workflows/multiarch-docker-hub.yml/badge.svg)](https://github.com/sctg-development/sctgdesk-server/actions/workflows/multiarch-docker-hub.yml)
 [![build](https://github.com/sctg-development/sctgdesk-server/actions/workflows/macos-intel-build.yml/badge.svg)](https://github.com/sctg-development/sctgdesk-server/actions/workflows/macos-intel-build.yml)
 [![build](https://github.com/sctg-development/sctgdesk-server/actions/workflows/windows.yml/badge.svg)](https://github.com/sctg-development/sctgdesk-server/actions/workflows/windows.yml)
@@ -87,6 +88,17 @@ services:
 mkdir -p data
 docker-compose up 
 ```
+
+## 二進位檔
+
+二進位檔可用於以下平臺：
+
+*   Linux x86\_64靜態連結
+*   Linux arm64 靜態連結
+*   Linux armv7 靜態連結
+*   MacOS 英特爾
+*   MacOS Apple Silicon
+*   Windows x86\_64
 
 ### 預設管理員使用者
 
@@ -327,6 +339,7 @@ Docker 鏡像是自動生成的，並在每個 github 版本上發佈。
 |--- |--- |
 |AMD64 系列 |`sctg/sctgdesk-server:latest`|
 |ARM64V8 |`sctg/sctgdesk-server:latest`|
+|ARM32V7 |`sctg/sctgdesk-server:latest`|
 
 您可以直接使用`docker run`使用以下命令：
 
