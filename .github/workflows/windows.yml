@@ -71,7 +71,7 @@ jobs:
     - name: Attest artifacts
       uses: actions/attest-build-provenance@v1
       with:
-        subject-path: '..\..\..\windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip'
+        subject-path: 'windows_${{ matrix.job.arch }}_${{ github.event.release.tag_name }}.zip'
 
     - name: Create Release with gh for Windows amd64
       shell: bash
