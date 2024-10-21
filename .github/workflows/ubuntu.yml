@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - tcpserver-master-build
+  workflow_dispatch:
 
 jobs:
   build:
